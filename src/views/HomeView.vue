@@ -17,8 +17,6 @@ const projection = reactive({
 const imgUrl = ref('https://imgs.xkcd.com/comics/online_communities.png');
 const modalActive = ref(false);
 const onToggleModal = (id: number) => {
-  console.log("================== id");
-  console.log(id);
   modalActive.value = !modalActive.value;
   focusedItem.value = id;
 }
