@@ -126,9 +126,8 @@ watch(show, (newShow, prevShow) => {
 
 </script>
 <template>
-  <div>
-    <div class="container w-full h-screen">
-      <iframe style="position: absolute; 
+  <!-- <div class="container w-full h-screen">
+    <iframe style="position: absolute; 
   top: 0;
   left: 0;
   bottom: 0;
@@ -137,49 +136,47 @@ watch(show, (newShow, prevShow) => {
   height: 100%;
 
   border: none;" src="https://map-overlay-cm-project.netlify.app/" scrolling="no"></iframe>
-    </div>
-    <ol-map :loadTilesWhileAnimating="true" :loadTilesWhileInteracting="true" style="height:800px;">
-      <ol-view ref="view" :center="center" :rotation="rotation" :zoom="zoom" :projection="projection" />
-      <ol-zoom-control />
-      <ol-attribution-control />
-      <ol-image-layer>
-        <ol-source-image-static :url="imgUrl" :imageSize="size" :imageExtent="extent"
-          :projection="projection"></ol-source-image-static>
-      </ol-image-layer>
-      <!-- <template>
+  </div> -->
+  <ol-map :loadTilesWhileAnimating="true" :loadTilesWhileInteracting="true" style="height:800px;">
+    <ol-view ref="view" :center="center" :rotation="rotation" :zoom="zoom" :projection="projection" />
+    <ol-zoom-control />
+    <ol-attribution-control />
+    <ol-image-layer>
+      <ol-source-image-static :url="imgUrl" :imageSize="size" :imageExtent="extent"
+        :projection="projection"></ol-source-image-static>
+    </ol-image-layer>
+    <!-- <template>
       <ol-overlay :position="[0, 1687]">
         <div :class="overlayClass"></div>
       </ol-overlay>
     </template> -->
-      <!-- <ol-overlay :position="[0, 1687]">
+    <!-- <ol-overlay :position="[0, 1687]">
       <div :class="overlayClass"></div>
     </ol-overlay> -->
-      <div v-for="(a, index) in areas" :key="a.id" style="z-index: 10;">
-        <div v-if="show === index">
-          <ol-vector-layer>
-            <ol-source-vector>
-              <ol-feature>
-                <ol-geom-multi-polygon :coordinates="[[a.cord]]"></ol-geom-multi-polygon>
-                <ol-style>
-                  <ol-style-stroke :color="a.strokeColor" :width="strokeWidth"></ol-style-stroke>
-                  <ol-style-fill :color="a.fillColor"></ol-style-fill>
-                </ol-style>
-              </ol-feature>
+    <div v-for="(a, index) in areas" :key="a.id" style="z-index: 10;">
+      <div v-if="show === index">
+        <ol-vector-layer>
+          <ol-source-vector>
+            <ol-feature>
+              <ol-geom-multi-polygon :coordinates="[[a.cord]]"></ol-geom-multi-polygon>
+              <ol-style>
+                <ol-style-stroke :color="a.strokeColor" :width="strokeWidth"></ol-style-stroke>
+                <ol-style-fill :color="a.fillColor"></ol-style-fill>
+              </ol-style>
+            </ol-feature>
 
-            </ol-source-vector>
-          </ol-vector-layer>
-        </div>
-        <template>
-          <ol-overlay :position="a.point">
-            <div class='pulseLoader'></div>
-            <div class="overlay-content" @click="onToggleModal(index)" @mouseover="show = index" @mouseleave="show = -1">
-            </div>
-          </ol-overlay>
-        </template>
+          </ol-source-vector>
+        </ol-vector-layer>
       </div>
-
-    </ol-map>
-  </div>
+      <template>
+        <ol-overlay :position="a.point">
+          <div class='pulseLoader'></div>
+          <div class="overlay-content" @click="onToggleModal(index)" @mouseover="show = index" @mouseleave="show = -1">
+          </div>
+        </ol-overlay>
+      </template>
+    </div>
+  </ol-map>
   <Modal :modal-active="modalActive" @close-modal="onToggleModal(0)" :name="areas[focusedItem].name"
     :url="areas[focusedItem].url" />
 </template>
